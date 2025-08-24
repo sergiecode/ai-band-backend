@@ -18,7 +18,7 @@ from midi_generator import MidiGenerator
 
 def example_basic_generation():
     """Example 1: Basic chord progression generation."""
-    print("\n🎵 Example 1: Basic Generation")
+    print("\nExample 1: Basic Generation")
     print("-" * 40)
     
     # Initialize components
@@ -48,15 +48,15 @@ def example_basic_generation():
     bass_file = output_dir / "example1_bass.mid"
     drum_file = output_dir / "example1_drums.mid"
     
-    bass_midi.save(str(bass_file))
-    drum_midi.save(str(drum_file))
+    bass_midi.write(str(bass_file))
+    drum_midi.write(str(drum_file))
     
-    print(f"✅ Files saved: {bass_file}, {drum_file}")
+    print(f"Files saved: {bass_file}, {drum_file}")
 
 
 def example_different_styles():
     """Example 2: Different musical styles and tempos."""
-    print("\n🎵 Example 2: Different Styles")
+    print("\nExample 2: Different Styles")
     print("-" * 40)
     
     generator = MidiGenerator()
@@ -86,16 +86,16 @@ def example_different_styles():
     output_dir = Path("examples_output")
     output_dir.mkdir(exist_ok=True)
     
-    bass_ballad.save(str(output_dir / "example2_ballad_bass.mid"))
-    bass_rock.save(str(output_dir / "example2_rock_bass.mid"))
-    drum_rock.save(str(output_dir / "example2_rock_drums.mid"))
+    bass_ballad.write(str(output_dir / "example2_ballad_bass.mid"))
+    bass_rock.write(str(output_dir / "example2_rock_bass.mid"))
+    drum_rock.write(str(output_dir / "example2_rock_drums.mid"))
     
-    print("✅ Different style examples saved")
+    print("Different style examples saved")
 
 
 def example_combined_track():
     """Example 3: Combining bass and drums into one file."""
-    print("\n🎵 Example 3: Combined Track")
+    print("\nExample 3: Combined Track")
     print("-" * 40)
     
     generator = MidiGenerator()
@@ -120,14 +120,14 @@ def example_combined_track():
     output_dir.mkdir(exist_ok=True)
     
     combined_file = output_dir / "example3_combined.mid"
-    combined_midi.save(str(combined_file))
+    combined_midi.write(str(combined_file))
     
-    print(f"✅ Combined track saved: {combined_file}")
+    print(f"Combined track saved: {combined_file}")
 
 
 def example_ai_features():
     """Example 4: AI feature extraction for future model training."""
-    print("\n🎵 Example 4: AI Features")
+    print("\nExample 4: AI Features")
     print("-" * 40)
     
     detector = ChordDetector()
@@ -158,14 +158,14 @@ def example_ai_features():
     output_dir.mkdir(exist_ok=True)
     
     ai_file = output_dir / "example4_ai_bass.mid"
-    ai_bass.save(str(ai_file))
+    ai_bass.write(str(ai_file))
     
-    print(f"✅ AI-enhanced bass saved: {ai_file}")
+    print(f"AI-enhanced bass saved: {ai_file}")
 
 
 def main():
     """Run all examples."""
-    print("🎸 AI Band Backend - Examples")
+    print("AI Band Backend - Examples")
     print("=" * 50)
     print("Created by Sergie Code")
     print("These examples show different ways to use the AI Band Backend")
@@ -176,12 +176,12 @@ def main():
         example_combined_track()
         example_ai_features()
         
-        print("\n🎉 All examples completed successfully!")
-        print("📁 Check the 'examples_output' folder for generated MIDI files")
-        print("🎵 Import these files into your DAW to hear the results!")
+        print("\nAll examples completed successfully!")
+        print("Check the 'examples_output' folder for generated MIDI files")
+        print("Import these files into your DAW to hear the results!")
         
     except Exception as e:
-        print(f"\n❌ Error running examples: {e}")
+        print(f"\nError running examples: {e}")
         print("Make sure you've installed all dependencies:")
         print("pip install -r requirements.txt")
 

@@ -23,7 +23,7 @@ def main():
     2. Generate bass and drum MIDI tracks
     3. Save output files
     """
-    print("🎸 AI Band Backend - Generating Music with AI")
+    print("AI Band Backend - Generating Music with AI")
     print("=" * 50)
     
     # Initialize components
@@ -31,7 +31,7 @@ def main():
     midi_generator = MidiGenerator()
     
     # Example chord progression (simulated guitar input)
-    print("🎵 Analyzing chord progression...")
+    print("Analyzing chord progression...")
     sample_chords = [
         {"chord": "C", "start_time": 0.0, "duration": 2.0},
         {"chord": "Am", "start_time": 2.0, "duration": 2.0},
@@ -43,11 +43,11 @@ def main():
     tempo = chord_detector.detect_tempo(sample_chords)
     key = chord_detector.detect_key(sample_chords)
     
-    print(f"🎼 Detected tempo: {tempo} BPM")
-    print(f"🎹 Detected key: {key}")
+    print(f"Detected tempo: {tempo} BPM")
+    print(f"Detected key: {key}")
     
     # Generate bass track
-    print("🎸 Generating bass track...")
+    print("Generating bass track...")
     bass_midi = midi_generator.generate_bass_track(
         chord_progression=sample_chords,
         tempo=tempo,
@@ -55,7 +55,7 @@ def main():
     )
     
     # Generate drum track
-    print("🥁 Generating drum track...")
+    print("Generating drum track...")
     drum_midi = midi_generator.generate_drum_track(
         chord_progression=sample_chords,
         tempo=tempo,
@@ -70,21 +70,21 @@ def main():
     bass_file = output_dir / "bass_track.mid"
     drum_file = output_dir / "drum_track.mid"
     
-    bass_midi.save(str(bass_file))
-    drum_midi.save(str(drum_file))
+    bass_midi.write(str(bass_file))
+    drum_midi.write(str(drum_file))
     
-    print(f"✅ Bass track saved: {bass_file}")
-    print(f"✅ Drum track saved: {drum_file}")
-    print("\n🎉 AI Band Backend generation complete!")
-    print("📁 Check the 'output' folder for your MIDI files")
-    print("🎵 Import these files into your DAW to hear the magic!")
+    print(f"Bass track saved: {bass_file}")
+    print(f"Drum track saved: {drum_file}")
+    print("\nAI Band Backend generation complete!")
+    print("Check the 'output' folder for your MIDI files")
+    print("Import these files into your DAW to hear the magic!")
 
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
         print("Make sure all dependencies are installed:")
         print("pip install -r requirements.txt")
         sys.exit(1)

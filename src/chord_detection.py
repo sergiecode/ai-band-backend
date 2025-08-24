@@ -79,9 +79,17 @@ class ChordDetector:
         if len(chord_progression) < 2:
             return 120  # Default tempo
         
-        # Calculate average chord duration
-        durations = [chord["duration"] for chord in chord_progression]
-        avg_duration = np.mean(durations)
+        # Calculate average chord duration, handling missing keys
+        durations = []
+        for chord in chord_progression:
+            if "duration" in chord and isinstance(chord["duration"], (int, float)):
+                if chord["duration"] > 0:  # Only positive durations
+                    durations.append(chord["duration"])
+        
+        if not durations:
+            return 120  # Default if no valid durations
+        
+        avg_duration = sum(durations) / len(durations)
         
         # Estimate BPM based on chord changes
         # Assuming each chord represents a measure or half-measure
@@ -106,8 +114,14 @@ class ChordDetector:
         if not chord_progression:
             return "C"
         
-        # Extract chord names
-        chords = [chord["chord"] for chord in chord_progression]
+        # Extract chord names, handling missing keys
+        chords = []
+        for chord_info in chord_progression:
+            if "chord" in chord_info and chord_info["chord"]:
+                chords.append(chord_info["chord"])
+        
+        if not chords:
+            return "C"  # Default if no valid chords
         
         # Simple key detection based on chord frequency
         key_scores = {}
@@ -133,12 +147,23 @@ class ChordDetector:
         Returns:
             Dictionary containing musical analysis
         """
+        # Calculate total duration safely
+        total_duration = 0.0
+        valid_chords = []
+        
+        for chord in chord_progression:
+            if "duration" in chord and isinstance(chord["duration"], (int, float)):
+                if chord["duration"] > 0:
+                    total_duration += chord["duration"]
+            if "chord" in chord and chord["chord"]:
+                valid_chords.append(chord["chord"])
+        
         return {
             "tempo": self.detect_tempo(chord_progression),
             "key": self.detect_key(chord_progression),
-            "total_duration": sum(chord["duration"] for chord in chord_progression),
+            "total_duration": total_duration,
             "chord_count": len(chord_progression),
-            "unique_chords": len(set(chord["chord"] for chord in chord_progression)),
+            "unique_chords": len(set(valid_chords)) if valid_chords else 0,
             "time_signature": "4/4",  # Default assumption
         }
     

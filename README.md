@@ -258,8 +258,22 @@ This project is open source and available under the MIT License.
 Passionate software engineer and music enthusiast creating AI tools for musicians. Teaching programming through practical projects that combine technology with creativity.
 
 **Connect with me:**
-- 🎥 [YouTube](https://youtube.com/@sergiecode)
-- 💻 [GitHub](https://github.com/sergiecode)
+- 📸 Instagram: https://www.instagram.com/sergiecode
+
+- 🧑🏼‍💻 LinkedIn: https://www.linkedin.com/in/sergiecode/
+
+- 📽️Youtube: https://www.youtube.com/@SergieCode
+
+- 😺 Github: https://github.com/sergiecode
+
+- 👤 Facebook: https://www.facebook.com/sergiecodeok
+
+- 🎞️ Tiktok: https://www.tiktok.com/@sergiecode
+
+- 🕊️Twitter: https://twitter.com/sergiecode
+
+- 🧵Threads: https://www.threads.net/@sergiecode
+
 - 🎵 Building the future of AI-powered music creation
 
 ---
