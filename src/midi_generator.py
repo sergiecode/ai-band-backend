@@ -69,9 +69,14 @@ class MidiGenerator:
         
         # Generate bass notes for each chord
         for chord_info in chord_progression:
-            chord_name = chord_info["chord"]
-            start_time = chord_info["start_time"]
-            duration = chord_info["duration"]
+            # Handle missing chord information gracefully
+            chord_name = chord_info.get("chord", "C")  # Default to C
+            start_time = chord_info.get("start_time", 0.0)
+            duration = chord_info.get("duration", 2.0)
+            
+            # Skip empty or invalid chords
+            if not chord_name or not isinstance(chord_name, str):
+                chord_name = "C"
             
             # Get bass notes for this chord
             if chord_name in self.chord_bass_notes:

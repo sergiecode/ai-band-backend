@@ -148,7 +148,7 @@ class TestIntegration(unittest.TestCase):
 
 def run_tests():
     """Run all tests and return results."""
-    print("🧪 Running AI Band Backend Tests")
+    print("Running AI Band Backend Tests")
     print("=" * 40)
     
     # Create test suite
@@ -168,10 +168,10 @@ def run_tests():
     # Print summary
     print("\n" + "=" * 40)
     if result.wasSuccessful():
-        print("✅ All tests passed!")
+        print("All tests passed!")
         print(f"Ran {result.testsRun} tests successfully")
     else:
-        print("❌ Some tests failed!")
+        print("Some tests failed!")
         print(f"Failures: {len(result.failures)}")
         print(f"Errors: {len(result.errors)}")
     
@@ -184,10 +184,10 @@ if __name__ == "__main__":
         if not success:
             sys.exit(1)
     except ImportError as e:
-        print(f"❌ Import error: {e}")
+        print(f"Import error: {e}")
         print("Make sure all dependencies are installed:")
         print("pip install -r requirements.txt")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Test error: {e}")
+        print(f"Test error: {e}")
         sys.exit(1)
