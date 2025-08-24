@@ -1,60 +1,60 @@
 # 🎸 AI Band Backend
 
-**Created by Sergie Code - AI Tools for Musicians**
+**Creado por Sergie Code - Herramientas de IA para Músicos**
 
-A Python backend for generating bass and drum tracks automatically from guitar input using AI models such as Magenta and Riffusion. The backend outputs MIDI files that can later be used in a DAW or audio plugin.
+Un backend de Python para generar pistas de bajo y batería automáticamente desde entrada de guitarra usando modelos de IA como Magenta y Riffusion. El backend genera archivos MIDI que luego pueden usarse en un DAW o plugin de audio.
 
-## 🎵 Project Overview
+## 🎵 Descripción del Proyecto
 
-The AI Band Backend is the core engine of an intelligent music creation system that:
+El AI Band Backend es el motor central de un sistema inteligente de creación musical que:
 
-- **Analyzes guitar input** to detect chords, tempo, and musical key
-- **Generates complementary bass lines** that follow the chord progression
-- **Creates dynamic drum patterns** that match the musical style
-- **Outputs professional MIDI files** ready for DAW integration
-- **Provides a foundation** for real-time music generation and plugin development
+- **Analiza entrada de guitarra** para detectar acordes, tempo y tonalidad musical
+- **Genera líneas de bajo complementarias** que siguen la progresión de acordes
+- **Crea patrones de batería dinámicos** que coinciden con el estilo musical
+- **Genera archivos MIDI profesionales** listos para integración con DAW
+- **Proporciona una base** para generación musical en tiempo real y desarrollo de plugins
 
-### How It Works
+### Cómo Funciona
 
 ```
-Guitar Input → Chord Detection → AI Generation → MIDI Output
-     ↓              ↓               ↓            ↓
-Audio/MIDI → Chords + Tempo → Bass + Drums → .mid files
+Entrada de Guitarra → Detección de Acordes → Generación IA → Salida MIDI
+     ↓                    ↓                    ↓            ↓
+Audio/MIDI → Acordes + Tempo → Bajo + Batería → archivos .mid
 ```
 
-The pipeline consists of:
+El pipeline consiste en:
 
-1. **Chord Detection**: Analyzes musical input to extract chord progressions and timing
-2. **AI Generation**: Uses machine learning models to generate bass and drum parts
-3. **MIDI Export**: Creates high-quality MIDI files for DAW integration
+1. **Detección de Acordes**: Analiza entrada musical para extraer progresiones de acordes y timing
+2. **Generación IA**: Usa modelos de aprendizaje automático para generar partes de bajo y batería
+3. **Exportación MIDI**: Crea archivos MIDI de alta calidad para integración con DAW
 
-## 🚀 Features
+## 🚀 Características
 
-- ✅ **Chord progression analysis** with tempo and key detection
-- ✅ **Intelligent bass line generation** following musical theory
-- ✅ **Dynamic drum pattern creation** with realistic velocity and timing
-- ✅ **Professional MIDI output** compatible with all DAWs
-- 🔄 **Extensible architecture** for adding more instruments
-- 🎯 **AI-ready foundation** for Magenta and custom model integration
-- 🔌 **Plugin-friendly design** for real-time processing
+- ✅ **Análisis de progresiones de acordes** con detección de tempo y tonalidad
+- ✅ **Generación inteligente de líneas de bajo** siguiendo teoría musical
+- ✅ **Creación dinámica de patrones de batería** con velocidad y timing realistas
+- ✅ **Salida MIDI profesional** compatible con todos los DAWs
+- 🔄 **Arquitectura extensible** para agregar más instrumentos
+- 🎯 **Base lista para IA** para integración con Magenta y modelos personalizados
+- 🔌 **Diseño amigable para plugins** para procesamiento en tiempo real
 
-## 🛠️ Installation
+## 🛠️ Instalación
 
-### Prerequisites
+### Prerrequisitos
 
-- Python 3.8 or higher
-- pip package manager
-- Virtual environment (recommended)
+- Python 3.8 o superior
+- Gestor de paquetes pip
+- Entorno virtual (recomendado)
 
-### Setup Instructions
+### Instrucciones de Configuración
 
-1. **Clone the repository**
+1. **Clonar el repositorio**
    ```bash
    git clone https://github.com/sergiecode/ai-band-backend.git
    cd ai-band-backend
    ```
 
-2. **Create and activate a virtual environment**
+2. **Crear y activar un entorno virtual**
    ```bash
    # Windows
    python -m venv venv
@@ -65,63 +65,63 @@ The pipeline consists of:
    source venv/bin/activate
    ```
 
-3. **Install dependencies**
+3. **Instalar dependencias**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Verify installation**
+4. **Verificar instalación**
    ```bash
    cd src
    python main.py
    ```
 
-## 🎮 Usage
+## 🎮 Uso
 
-### Basic Example
+### Ejemplo Básico
 
-Run the main script to generate sample bass and drum tracks:
+Ejecuta el script principal para generar pistas de bajo y batería de muestra:
 
 ```bash
 cd src
 python main.py
 ```
 
-This will:
-- Analyze a sample chord progression (C - Am - F - G)
-- Generate a bass track that follows the chords
-- Create a drum pattern that complements the progression
-- Save MIDI files to the `output/` directory
+Esto:
+- Analizará una progresión de acordes de muestra (C - Am - F - G)
+- Generará una pista de bajo que sigue los acordes
+- Creará un patrón de batería que complementa la progresión
+- Guardará archivos MIDI en el directorio `output/`
 
-### Example Output
+### Salida de Ejemplo
 
 ```
-🎸 AI Band Backend - Generating Music with AI
+🎸 AI Band Backend - Generando Música con IA
 ==================================================
-🎵 Analyzing chord progression...
-🎼 Detected tempo: 120 BPM
-🎹 Detected key: C
-🎸 Generating bass track...
-🥁 Generating drum track...
-✅ Bass track saved: output/bass_track.mid
-✅ Drum track saved: output/drum_track.mid
+🎵 Analizando progresión de acordes...
+🎼 Tempo detectado: 120 BPM
+🎹 Tonalidad detectada: C
+🎸 Generando pista de bajo...
+🥁 Generando pista de batería...
+✅ Pista de bajo guardada: output/bass_track.mid
+✅ Pista de batería guardada: output/drum_track.mid
 
-🎉 AI Band Backend generation complete!
-📁 Check the 'output' folder for your MIDI files
-🎵 Import these files into your DAW to hear the magic!
+🎉 ¡Generación del AI Band Backend completa!
+📁 Revisa la carpeta 'output' para tus archivos MIDI
+🎵 ¡Importa estos archivos a tu DAW para escuchar la magia!
 ```
 
-### Using in Your Code
+### Usando en Tu Código
 
 ```python
 from chord_detection import ChordDetector
 from midi_generator import MidiGenerator
 
-# Initialize components
+# Inicializar componentes
 detector = ChordDetector()
 generator = MidiGenerator()
 
-# Define chord progression
+# Definir progresión de acordes
 chords = [
     {"chord": "C", "start_time": 0.0, "duration": 2.0},
     {"chord": "Am", "start_time": 2.0, "duration": 2.0},
@@ -129,135 +129,135 @@ chords = [
     {"chord": "G", "start_time": 6.0, "duration": 2.0},
 ]
 
-# Generate tracks
+# Generar pistas
 bass_midi = generator.generate_bass_track(chords, tempo=120)
 drum_midi = generator.generate_drum_track(chords, tempo=120)
 
-# Save files
+# Guardar archivos
 bass_midi.save("my_bass.mid")
 drum_midi.save("my_drums.mid")
 ```
 
-## 📁 Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 ai-band-backend/
 ├── src/
-│   ├── main.py              # Main entry point and example usage
-│   ├── chord_detection.py   # Chord and tempo detection logic
-│   ├── midi_generator.py    # MIDI generation for bass and drums
-│   └── models/              # AI models and neural networks
-│       └── __init__.py      # Models module placeholder
-├── requirements.txt         # Python dependencies
-├── README.md               # This file
-└── output/                 # Generated MIDI files (created on first run)
+│   ├── main.py              # Punto de entrada principal y uso de ejemplo
+│   ├── chord_detection.py   # Lógica de detección de acordes y tempo
+│   ├── midi_generator.py    # Generación MIDI para bajo y batería
+│   └── models/              # Modelos de IA y redes neuronales
+│       └── __init__.py      # Placeholder del módulo de modelos
+├── requirements.txt         # Dependencias de Python
+├── README.md               # Este archivo
+└── output/                 # Archivos MIDI generados (creados en la primera ejecución)
 ```
 
-## 🔧 Core Components
+## 🔧 Componentes Principales
 
 ### ChordDetector (`chord_detection.py`)
 
-Handles musical analysis and chord detection:
+Maneja análisis musical y detección de acordes:
 
-- **`detect_tempo()`**: Analyzes timing to determine BPM
-- **`detect_key()`**: Identifies musical key from chord progression
-- **`detect_chords_from_audio()`**: Placeholder for real-time audio analysis
-- **`extract_features_for_ai()`**: Prepares data for AI model input
+- **`detect_tempo()`**: Analiza timing para determinar BPM
+- **`detect_key()`**: Identifica tonalidad musical desde progresión de acordes
+- **`detect_chords_from_audio()`**: Placeholder para análisis de audio en tiempo real
+- **`extract_features_for_ai()`**: Prepara datos para entrada de modelo de IA
 
 ### MidiGenerator (`midi_generator.py`)
 
-Generates MIDI tracks using musical intelligence:
+Genera pistas MIDI usando inteligencia musical:
 
-- **`generate_bass_track()`**: Creates bass lines following chord progressions
-- **`generate_drum_track()`**: Generates drum patterns with realistic dynamics
-- **`combine_tracks()`**: Merges multiple instruments into single MIDI file
-- **`generate_ai_bass_track()`**: Placeholder for AI-enhanced generation
+- **`generate_bass_track()`**: Crea líneas de bajo siguiendo progresiones de acordes
+- **`generate_drum_track()`**: Genera patrones de batería con dinámicas realistas
+- **`combine_tracks()`**: Fusiona múltiples instrumentos en un solo archivo MIDI
+- **`generate_ai_bass_track()`**: Placeholder para generación mejorada con IA
 
-## 🚀 Extending the Project
+## 🚀 Extendiendo el Proyecto
 
-### Adding New Instruments
+### Agregando Nuevos Instrumentos
 
-1. Create generation methods in `MidiGenerator`
-2. Define instrument-specific MIDI mappings
-3. Add musical logic for the new instrument
-4. Update main pipeline to include new tracks
+1. Crear métodos de generación en `MidiGenerator`
+2. Definir mapeos MIDI específicos del instrumento
+3. Agregar lógica musical para el nuevo instrumento
+4. Actualizar pipeline principal para incluir nuevas pistas
 
-### Integrating AI Models
+### Integrando Modelos de IA
 
-1. Add model files to `src/models/`
-2. Implement model wrappers in the models module
-3. Update generators to use AI predictions
-4. Fine-tune models with your musical data
+1. Agregar archivos de modelo a `src/models/`
+2. Implementar wrappers de modelo en el módulo models
+3. Actualizar generadores para usar predicciones de IA
+4. Ajustar modelos con tus datos musicales
 
-### Real-time Processing
+### Procesamiento en Tiempo Real
 
-1. Implement audio input handling with PyAudio
-2. Add real-time chord detection with librosa
-3. Create streaming MIDI output
-4. Optimize for low-latency performance
+1. Implementar manejo de entrada de audio con PyAudio
+2. Agregar detección de acordes en tiempo real con librosa
+3. Crear salida MIDI de streaming
+4. Optimizar para rendimiento de baja latencia
 
-### DAW Plugin Integration
+### Integración con Plugin DAW
 
-1. Use the `ai-band-plugin` companion project
-2. Implement VST/AU wrapper around this backend
-3. Add real-time parameter control
-4. Create intuitive user interface
+1. Usar el proyecto compañero `ai-band-plugin`
+2. Implementar wrapper VST/AU alrededor de este backend
+3. Agregar control de parámetros en tiempo real
+4. Crear interfaz de usuario intuitiva
 
-## 🔗 Related Projects
+## 🔗 Proyectos Relacionados
 
-This backend is designed to work with:
+Este backend está diseñado para trabajar con:
 
-- **ai-band-plugin**: VST/AU plugin wrapper for DAW integration
-- **ai-band-orchestrator**: Multi-instrument coordination and arrangement
-- **ai-band-frontend**: Web interface for music generation
+- **ai-band-plugin**: Wrapper de plugin VST/AU para integración con DAW
+- **ai-band-orchestrator**: Coordinación multi-instrumento y arreglos
+- **ai-band-frontend**: Interfaz web para generación musical
 
-## 🎓 Educational Resources
+## 🎓 Recursos Educativos
 
-Created by **Sergie Code** for educational purposes. Check out related tutorials:
+Creado por **Sergie Code** con propósitos educativos. Revisa tutoriales relacionados:
 
-- [YouTube Channel](https://youtube.com/@sergiecode) - Programming tutorials
-- [AI Music Generation Course] - Deep dive into music AI
-- [MIDI Programming Basics] - Understanding MIDI fundamentals
+- [Canal de YouTube](https://youtube.com/@sergiecode) - Tutoriales de programación
+- [Curso de Generación Musical con IA] - Profundización en IA musical
+- [Fundamentos de Programación MIDI] - Entendiendo los fundamentos MIDI
 
-## 🛣️ Roadmap
+## 🛣️ Hoja de Ruta
 
-### Version 1.0 (Current)
-- ✅ Basic chord detection
-- ✅ Rule-based bass generation
-- ✅ Simple drum patterns
-- ✅ MIDI file output
+### Versión 1.0 (Actual)
+- ✅ Detección básica de acordes
+- ✅ Generación de bajo basada en reglas
+- ✅ Patrones simples de batería
+- ✅ Salida de archivos MIDI
 
-### Version 2.0 (Planned)
-- 🔄 Real-time audio input
-- 🔄 Magenta model integration
-- 🔄 Advanced chord recognition
-- 🔄 Multiple music styles
+### Versión 2.0 (Planeada)
+- 🔄 Entrada de audio en tiempo real
+- 🔄 Integración de modelos Magenta
+- 🔄 Reconocimiento avanzado de acordes
+- 🔄 Múltiples estilos musicales
 
-### Version 3.0 (Future)
-- 🔄 Custom neural networks
-- 🔄 Real-time plugin integration
-- 🔄 Multi-instrument orchestration
-- 🔄 Cloud-based processing
+### Versión 3.0 (Futuro)
+- 🔄 Redes neuronales personalizadas
+- 🔄 Integración de plugin en tiempo real
+- 🔄 Orquestación multi-instrumento
+- 🔄 Procesamiento basado en la nube
 
-## 🤝 Contributing
+## 🤝 Contribuyendo
 
-Contributions are welcome! Areas where you can help:
+¡Las contribuciones son bienvenidas! Áreas donde puedes ayudar:
 
-- Improve chord detection algorithms
-- Add new drum patterns and bass styles
-- Integrate additional AI models
-- Optimize performance for real-time use
-- Add support for more musical styles
+- Mejorar algoritmos de detección de acordes
+- Agregar nuevos patrones de batería y estilos de bajo
+- Integrar modelos de IA adicionales
+- Optimizar rendimiento para uso en tiempo real
+- Agregar soporte para más estilos musicales
 
-## 📄 License
+## 📄 Licencia
 
-This project is open source and available under the MIT License.
+Este proyecto es código abierto y está disponible bajo la Licencia MIT.
 
-## 🎸 About Sergie Code
+## 🎸 Acerca de Sergie Code
 
-Passionate software engineer and music enthusiast creating AI tools for musicians. Teaching programming through practical projects that combine technology with creativity.
+Ingeniero de software apasionado y entusiasta de la música creando herramientas de IA para músicos. Enseñando programación a través de proyectos prácticos que combinan tecnología con creatividad.
 
-**Connect with me:**
+**Conéctate conmigo:**
 - 📸 Instagram: https://www.instagram.com/sergiecode
 
 - 🧑🏼‍💻 LinkedIn: https://www.linkedin.com/in/sergiecode/
@@ -274,8 +274,8 @@ Passionate software engineer and music enthusiast creating AI tools for musician
 
 - 🧵Threads: https://www.threads.net/@sergiecode
 
-- 🎵 Building the future of AI-powered music creation
+- 🎵 Construyendo el futuro de la creación musical potenciada por IA
 
 ---
 
-*Made with ❤️ for the music and programming community*
+*Hecho con ❤️ para la comunidad de música y programación*

@@ -1,46 +1,46 @@
-# AI Band Backend Integration Guide
+# Guía de Integración del AI Band Backend
 
-**For AI Band Plugin (C++ JUCE) and AI Band Orchestrator (Python Server)**
+**Para AI Band Plugin (C++ JUCE) y AI Band Orchestrator (Servidor Python)**
 
-This document provides comprehensive integration instructions for using the AI Band Backend with the companion projects: `ai-band-plugin` (JUCE-based audio plugin) and `ai-band-orchestrator` (Python coordination server).
+Este documento proporciona instrucciones de integración completas para usar el AI Band Backend con los proyectos compañeros: `ai-band-plugin` (plugin de audio basado en JUCE) y `ai-band-orchestrator` (servidor de coordinación Python).
 
-## 📋 Table of Contents
+## 📋 Tabla de Contenidos
 
-1. [AI Band Backend Overview](#ai-band-backend-overview)
-2. [Integration Architecture](#integration-architecture)
-3. [AI Band Plugin Integration](#ai-band-plugin-integration)
-4. [AI Band Orchestrator Integration](#ai-band-orchestrator-integration)
-5. [Communication Protocols](#communication-protocols)
-6. [File Formats and Data Structures](#file-formats-and-data-structures)
-7. [API Reference](#api-reference)
-8. [Error Handling](#error-handling)
-9. [Performance Considerations](#performance-considerations)
-10. [Development Workflow](#development-workflow)
+1. [Descripción del AI Band Backend](#descripcion-del-ai-band-backend)
+2. [Arquitectura de Integración](#arquitectura-de-integracion)
+3. [Integración AI Band Plugin](#integracion-ai-band-plugin)
+4. [Integración AI Band Orchestrator](#integracion-ai-band-orchestrator)
+5. [Protocolos de Comunicación](#protocolos-de-comunicacion)
+6. [Formatos de Archivo y Estructuras de Datos](#formatos-de-archivo-y-estructuras-de-datos)
+7. [Referencia API](#referencia-api)
+8. [Manejo de Errores](#manejo-de-errores)
+9. [Consideraciones de Rendimiento](#consideraciones-de-rendimiento)
+10. [Flujo de Trabajo de Desarrollo](#flujo-de-trabajo-de-desarrollo)
 
 ---
 
-## 🎯 AI Band Backend Overview
+## 🎯 Descripción del AI Band Backend
 
-### Core Functionality
-The AI Band Backend (`ai-band-backend`) provides:
-- **Chord progression analysis** from guitar input
-- **Intelligent bass line generation** following musical theory
-- **Dynamic drum pattern creation** with realistic timing
-- **Professional MIDI file output** compatible with all DAWs
-- **Real-time generation capabilities** for live performance
+### Funcionalidad Principal
+El AI Band Backend (`ai-band-backend`) proporciona:
+- **Análisis de progresiones de acordes** desde entrada de guitarra
+- **Generación inteligente de líneas de bajo** siguiendo teoría musical
+- **Creación dinámica de patrones de batería** con timing realista
+- **Salida de archivos MIDI profesionales** compatible con todos los DAWs
+- **Capacidades de generación en tiempo real** para presentaciones en vivo
 
-### Key Components
+### Componentes Clave
 ```
 src/
-├── main.py              # Entry point and example usage
-├── chord_detection.py   # ChordDetector class
-├── midi_generator.py    # MidiGenerator class
-└── models/              # AI models directory
+├── main.py              # Punto de entrada y uso de ejemplo
+├── chord_detection.py   # Clase ChordDetector
+├── midi_generator.py    # Clase MidiGenerator
+└── models/              # Directorio de modelos de IA
 ```
 
-### Dependencies
+### Dependencias
 ```python
-# Core dependencies (see requirements.txt)
+# Dependencias principales (ver requirements.txt)
 pretty_midi==0.2.10
 mido==1.3.2
 numpy==1.24.3
@@ -48,7 +48,7 @@ numpy==1.24.3
 
 ---
 
-## 🏗️ Integration Architecture
+## 🏗️ Arquitectura de Integración
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -58,47 +58,47 @@ numpy==1.24.3
 └─────────────────┘    └─────────────────┘    └─────────────────┘
         │                        │                        │
         ▼                        ▼                        ▼
-   MIDI Files              REST API              VST/AU Plugin
-   Chord Analysis         WebSocket              DAW Integration
-   AI Generation          File Management        Real-time Playback
+   Archivos MIDI           API REST               Plugin VST/AU
+   Análisis Acordes        WebSocket              Integración DAW
+   Generación IA          Gestión Archivos       Reproducción Tiempo Real
 ```
 
-### Communication Flow
-1. **Input**: Guitar/MIDI → Plugin → Orchestrator
-2. **Processing**: Orchestrator → Backend (chord analysis + generation)
-3. **Output**: Backend → Orchestrator → Plugin → DAW
+### Flujo de Comunicación
+1. **Entrada**: Guitarra/MIDI → Plugin → Orchestrator
+2. **Procesamiento**: Orchestrator → Backend (análisis acordes + generación)
+3. **Salida**: Backend → Orchestrator → Plugin → DAW
 
 ---
 
-## 🎸 AI Band Plugin Integration
+## 🎸 Integración AI Band Plugin
 
-### Plugin Requirements (C++ JUCE)
+### Requisitos del Plugin (C++ JUCE)
 
-#### 1. MIDI File Import/Export
+#### 1. Importación/Exportación de Archivos MIDI
 ```cpp
-// Example JUCE integration
+// Ejemplo de integración JUCE
 class AIBandPlugin : public AudioProcessor {
 public:
-    // Load MIDI from AI Band Backend
+    // Cargar MIDI del AI Band Backend
     void loadAIGeneratedMIDI(const String& filePath) {
         File midiFile(filePath);
         if (midiFile.existsAsFile()) {
             FileInputStream stream(midiFile);
             MidiFile midi;
             midi.readFrom(stream);
-            // Process MIDI data...
+            // Procesar datos MIDI...
         }
     }
     
-    // Send chord progression to orchestrator
+    // Enviar progresión de acordes al orchestrator
     void sendChordProgression(const ChordProgression& chords) {
-        // HTTP POST to orchestrator
-        // Format: JSON chord data
+        // HTTP POST al orchestrator
+        // Formato: datos de acordes JSON
     }
 };
 ```
 
-#### 2. Expected Input Format from Backend
+#### 2. Formato de Entrada Esperado del Backend
 ```json
 {
   "bass_track": {
@@ -120,19 +120,19 @@ public:
 }
 ```
 
-#### 3. Required Plugin Features
-- **MIDI Import**: Read `.mid` files from backend
-- **Real-time Playback**: Stream MIDI data to DAW
-- **Chord Input**: Capture guitar/MIDI input for analysis
-- **Parameter Control**: Tempo, key, style adjustments
-- **File Management**: Handle temporary MIDI files
+#### 3. Características Requeridas del Plugin
+- **Importación MIDI**: Leer archivos `.mid` del backend
+- **Reproducción en Tiempo Real**: Transmitir datos MIDI al DAW
+- **Entrada de Acordes**: Capturar entrada de guitarra/MIDI para análisis
+- **Control de Parámetros**: Ajustes de tempo, tonalidad, estilo
+- **Gestión de Archivos**: Manejar archivos MIDI temporales
 
-#### 4. Communication with Orchestrator
+#### 4. Comunicación con Orchestrator
 ```cpp
-// HTTP client for orchestrator communication
+// Cliente HTTP para comunicación con orchestrator
 class OrchestratorClient {
 public:
-    // Generate tracks from chord progression
+    // Generar pistas desde progresión de acordes
     bool generateTracks(const ChordProgression& chords, 
                        int tempo, const String& key) {
         json request = {
@@ -145,7 +145,7 @@ public:
         return response.status == 200;
     }
     
-    // Get generated MIDI files
+    // Obtener archivos MIDI generados
     MidiFiles getGeneratedFiles() {
         auto response = httpGet("http://localhost:8080/files/latest");
         return parseMidiFiles(response.body);
@@ -155,11 +155,11 @@ public:
 
 ---
 
-## 🎛️ AI Band Orchestrator Integration
+## 🎛️ Integración AI Band Orchestrator
 
-### Server Requirements (Python FastAPI/Flask)
+### Requisitos del Servidor (Python FastAPI/Flask)
 
-#### 1. Backend Integration Module
+#### 1. Módulo de Integración Backend
 ```python
 # orchestrator/backend_client.py
 import sys
@@ -179,15 +179,15 @@ class BackendClient:
         self.output_dir.mkdir(exist_ok=True)
     
     def generate_tracks(self, chord_data, tempo=120, key="C"):
-        """Generate bass and drum tracks from chord progression."""
-        # Convert input to backend format
+        """Generar pistas de bajo y batería desde progresión de acordes."""
+        # Convertir entrada al formato del backend
         chords = self._parse_chord_data(chord_data)
         
-        # Generate tracks
+        # Generar pistas
         bass_midi = self.generator.generate_bass_track(chords, tempo, key)
         drum_midi = self.generator.generate_drum_track(chords, tempo, duration=8.0)
         
-        # Save files with unique names
+        # Guardar archivos con nombres únicos
         timestamp = int(time.time())
         bass_file = self.output_dir / f"bass_{timestamp}.mid"
         drum_file = self.output_dir / f"drum_{timestamp}.mid"

@@ -1,9 +1,9 @@
 """
-AI Band Backend - Main Entry Point
-Created by Sergie Code - AI Tools for Musicians
+AI Band Backend - Punto de Entrada Principal
+Creado por Sergie Code - Herramientas de IA para Músicos
 
-This is the main entry point for the AI Band Backend that generates
-bass and drum tracks from guitar input using AI models.
+Este es el punto de entrada principal para el AI Band Backend que genera
+pistas de bajo y batería desde entrada de guitarra usando modelos de IA.
 """
 
 import sys
@@ -18,20 +18,20 @@ from midi_generator import MidiGenerator
 
 def main():
     """
-    Main function that demonstrates the AI Band Backend pipeline:
-    1. Detect chords from guitar input (simulated)
-    2. Generate bass and drum MIDI tracks
-    3. Save output files
+    Función principal que demuestra el pipeline del AI Band Backend:
+    1. Detectar acordes desde entrada de guitarra (simulada)
+    2. Generar pistas MIDI de bajo y batería
+    3. Guardar archivos de salida
     """
-    print("AI Band Backend - Generating Music with AI")
+    print("🎸 AI Band Backend - Generando Música con IA")
     print("=" * 50)
     
-    # Initialize components
+    # Inicializar componentes
     chord_detector = ChordDetector()
     midi_generator = MidiGenerator()
     
-    # Example chord progression (simulated guitar input)
-    print("Analyzing chord progression...")
+    # Progresión de acordes de ejemplo (entrada de guitarra simulada)
+    print("🎵 Analizando progresión de acordes...")
     sample_chords = [
         {"chord": "C", "start_time": 0.0, "duration": 2.0},
         {"chord": "Am", "start_time": 2.0, "duration": 2.0},
@@ -39,52 +39,52 @@ def main():
         {"chord": "G", "start_time": 6.0, "duration": 2.0},
     ]
     
-    # Detect tempo and key information
+    # Detectar información de tempo y tonalidad
     tempo = chord_detector.detect_tempo(sample_chords)
     key = chord_detector.detect_key(sample_chords)
     
-    print(f"Detected tempo: {tempo} BPM")
-    print(f"Detected key: {key}")
+    print(f"🎼 Tempo detectado: {tempo} BPM")
+    print(f"🎹 Tonalidad detectada: {key}")
     
-    # Generate bass track
-    print("Generating bass track...")
+    # Generar pista de bajo
+    print("🎸 Generando pista de bajo...")
     bass_midi = midi_generator.generate_bass_track(
         chord_progression=sample_chords,
         tempo=tempo,
         key=key
     )
     
-    # Generate drum track
-    print("Generating drum track...")
+    # Generar pista de batería
+    print("🥁 Generando pista de batería...")
     drum_midi = midi_generator.generate_drum_track(
         chord_progression=sample_chords,
         tempo=tempo,
-        duration=8.0  # Total duration in seconds
+        duration=8.0  # Duración total en segundos
     )
     
-    # Create output directory
+    # Crear directorio de salida
     output_dir = Path("output")
     output_dir.mkdir(exist_ok=True)
     
-    # Save MIDI files
+    # Guardar archivos MIDI
     bass_file = output_dir / "bass_track.mid"
     drum_file = output_dir / "drum_track.mid"
     
     bass_midi.write(str(bass_file))
     drum_midi.write(str(drum_file))
     
-    print(f"Bass track saved: {bass_file}")
-    print(f"Drum track saved: {drum_file}")
-    print("\nAI Band Backend generation complete!")
-    print("Check the 'output' folder for your MIDI files")
-    print("Import these files into your DAW to hear the magic!")
+    print(f"✅ Pista de bajo guardada: {bass_file}")
+    print(f"✅ Pista de batería guardada: {drum_file}")
+    print("\n🎉 ¡Generación del AI Band Backend completa!")
+    print("📁 Revisa la carpeta 'output' para tus archivos MIDI")
+    print("🎵 ¡Importa estos archivos a tu DAW para escuchar la magia!")
 
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print(f"Error: {e}")
-        print("Make sure all dependencies are installed:")
+        print(f"❌ Error: {e}")
+        print("Asegúrate de que todas las dependencias estén instaladas:")
         print("pip install -r requirements.txt")
         sys.exit(1)

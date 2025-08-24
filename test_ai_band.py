@@ -1,8 +1,8 @@
 """
-Test Suite for AI Band Backend
-Created by Sergie Code
+Suite de Pruebas para AI Band Backend
+Creado por Sergie Code
 
-Basic tests to ensure the core functionality works correctly.
+Pruebas básicas para asegurar que la funcionalidad principal funciona correctamente.
 """
 
 import sys
@@ -17,10 +17,10 @@ from midi_generator import MidiGenerator
 
 
 class TestChordDetection(unittest.TestCase):
-    """Test chord detection functionality."""
+    """Probar funcionalidad de detección de acordes."""
     
     def setUp(self):
-        """Set up test fixtures."""
+        """Configurar fixtures de prueba."""
         self.detector = ChordDetector()
         self.sample_chords = [
             {"chord": "C", "start_time": 0.0, "duration": 2.0},
@@ -30,20 +30,20 @@ class TestChordDetection(unittest.TestCase):
         ]
     
     def test_tempo_detection(self):
-        """Test tempo detection from chord progression."""
+        """Probar detección de tempo desde progresión de acordes."""
         tempo = self.detector.detect_tempo(self.sample_chords)
         self.assertIsInstance(tempo, int)
         self.assertGreater(tempo, 0)
         self.assertLess(tempo, 200)
     
     def test_key_detection(self):
-        """Test key detection from chord progression."""
+        """Probar detección de tonalidad desde progresión de acordes."""
         key = self.detector.detect_key(self.sample_chords)
         self.assertIsInstance(key, str)
         self.assertIn(key, ['C', 'F', 'G', 'Am', 'Dm', 'Em'])
     
     def test_chord_analysis(self):
-        """Test comprehensive chord progression analysis."""
+        """Probar análisis comprensivo de progresión de acordes."""
         analysis = self.detector.analyze_chord_progression(self.sample_chords)
         
         required_keys = ['tempo', 'key', 'total_duration', 'chord_count']
@@ -54,17 +54,17 @@ class TestChordDetection(unittest.TestCase):
         self.assertEqual(analysis['total_duration'], 8.0)
     
     def test_feature_extraction(self):
-        """Test AI feature extraction."""
+        """Probar extracción de características de IA."""
         features = self.detector.extract_features_for_ai(self.sample_chords)
         self.assertIsNotNone(features)
         self.assertGreater(len(features), 0)
 
 
 class TestMidiGeneration(unittest.TestCase):
-    """Test MIDI generation functionality."""
+    """Probar funcionalidad de generación MIDI."""
     
     def setUp(self):
-        """Set up test fixtures."""
+        """Configurar fixtures de prueba."""
         self.generator = MidiGenerator()
         self.sample_chords = [
             {"chord": "C", "start_time": 0.0, "duration": 2.0},
@@ -72,7 +72,7 @@ class TestMidiGeneration(unittest.TestCase):
         ]
     
     def test_bass_generation(self):
-        """Test bass track generation."""
+        """Probar generación de pista de bajo."""
         bass_midi = self.generator.generate_bass_track(
             self.sample_chords, tempo=120
         )
@@ -85,7 +85,7 @@ class TestMidiGeneration(unittest.TestCase):
         self.assertGreater(len(bass_instrument.notes), 0)
     
     def test_drum_generation(self):
-        """Test drum track generation."""
+        """Probar generación de pista de batería."""
         drum_midi = self.generator.generate_drum_track(
             self.sample_chords, tempo=120, duration=4.0
         )
@@ -98,7 +98,7 @@ class TestMidiGeneration(unittest.TestCase):
         self.assertGreater(len(drum_instrument.notes), 0)
     
     def test_track_combination(self):
-        """Test combining bass and drum tracks."""
+        """Probar combinación de pistas de bajo y batería."""
         bass_midi = self.generator.generate_bass_track(self.sample_chords)
         drum_midi = self.generator.generate_drum_track(self.sample_chords, duration=4.0)
         
@@ -107,7 +107,7 @@ class TestMidiGeneration(unittest.TestCase):
         self.assertIsNotNone(combined_midi)
         self.assertEqual(len(combined_midi.instruments), 2)
         
-        # Check that we have both bass and drums
+        # Verificar que tenemos tanto bajo como batería
         has_bass = any(not inst.is_drum for inst in combined_midi.instruments)
         has_drums = any(inst.is_drum for inst in combined_midi.instruments)
         
@@ -116,30 +116,30 @@ class TestMidiGeneration(unittest.TestCase):
 
 
 class TestIntegration(unittest.TestCase):
-    """Test integration between components."""
+    """Probar integración entre componentes."""
     
     def setUp(self):
-        """Set up test fixtures."""
+        """Configurar fixtures de prueba."""
         self.detector = ChordDetector()
         self.generator = MidiGenerator()
     
     def test_full_pipeline(self):
-        """Test the complete generation pipeline."""
-        # Input chord progression
+        """Probar el pipeline completo de generación."""
+        # Progresión de acordes de entrada
         chords = [
             {"chord": "C", "start_time": 0.0, "duration": 2.0},
             {"chord": "G", "start_time": 2.0, "duration": 2.0},
         ]
         
-        # Analyze chords
+        # Analizar acordes
         tempo = self.detector.detect_tempo(chords)
         key = self.detector.detect_key(chords)
         
-        # Generate tracks
+        # Generar pistas
         bass_midi = self.generator.generate_bass_track(chords, tempo=tempo, key=key)
         drum_midi = self.generator.generate_drum_track(chords, tempo=tempo, duration=4.0)
         
-        # Verify results
+        # Verificar resultados
         self.assertIsNotNone(bass_midi)
         self.assertIsNotNone(drum_midi)
         self.assertGreater(len(bass_midi.instruments[0].notes), 0)
@@ -147,33 +147,33 @@ class TestIntegration(unittest.TestCase):
 
 
 def run_tests():
-    """Run all tests and return results."""
-    print("Running AI Band Backend Tests")
+    """Ejecutar todas las pruebas y devolver resultados."""
+    print("🧪 Ejecutando Pruebas del AI Band Backend")
     print("=" * 40)
     
-    # Create test suite
+    # Crear suite de pruebas
     test_suite = unittest.TestSuite()
     
-    # Add test classes
+    # Agregar clases de prueba
     test_classes = [TestChordDetection, TestMidiGeneration, TestIntegration]
     
     for test_class in test_classes:
         tests = unittest.TestLoader().loadTestsFromTestCase(test_class)
         test_suite.addTests(tests)
     
-    # Run tests
+    # Ejecutar pruebas
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(test_suite)
     
-    # Print summary
+    # Imprimir resumen
     print("\n" + "=" * 40)
     if result.wasSuccessful():
-        print("All tests passed!")
-        print(f"Ran {result.testsRun} tests successfully")
+        print("✅ ¡Todas las pruebas pasaron!")
+        print(f"📊 Ejecutó {result.testsRun} pruebas exitosamente")
     else:
-        print("Some tests failed!")
-        print(f"Failures: {len(result.failures)}")
-        print(f"Errors: {len(result.errors)}")
+        print("❌ ¡Algunas pruebas fallaron!")
+        print(f"💥 Fallas: {len(result.failures)}")
+        print(f"🚨 Errores: {len(result.errors)}")
     
     return result.wasSuccessful()
 
@@ -184,10 +184,10 @@ if __name__ == "__main__":
         if not success:
             sys.exit(1)
     except ImportError as e:
-        print(f"Import error: {e}")
-        print("Make sure all dependencies are installed:")
+        print(f"❌ Error de importación: {e}")
+        print("Asegúrate de que todas las dependencias estén instaladas:")
         print("pip install -r requirements.txt")
         sys.exit(1)
     except Exception as e:
-        print(f"Test error: {e}")
+        print(f"❌ Error de prueba: {e}")
         sys.exit(1)

@@ -1,9 +1,9 @@
 """
-MIDI Generator Module
-Part of AI Band Backend by Sergie Code
+Módulo Generador MIDI
+Parte del AI Band Backend por Sergie Code
 
-This module handles MIDI generation for bass and drum tracks using AI models.
-Integrates with Magenta and other AI frameworks for intelligent music generation.
+Este módulo maneja la generación MIDI para pistas de bajo y batería usando modelos de IA.
+Se integra con Magenta y otros frameworks de IA para generación musical inteligente.
 """
 
 import pretty_midi
@@ -13,21 +13,21 @@ import random
 
 class MidiGenerator:
     """
-    Generates MIDI tracks for bass and drums based on chord progressions.
+    Genera pistas MIDI para bajo y batería basándose en progresiones de acordes.
     
-    This class provides methods to:
-    - Generate bass lines that follow chord progressions
-    - Create drum patterns that complement the musical style
-    - Use AI models for intelligent music generation
-    - Export high-quality MIDI files
+    Esta clase proporciona métodos para:
+    - Generar líneas de bajo que siguen progresiones de acordes
+    - Crear patrones de batería que complementan el estilo musical
+    - Usar modelos de IA para generación musical inteligente
+    - Exportar archivos MIDI de alta calidad
     """
     
     def __init__(self):
-        """Initialize the MIDI generator with default settings."""
+        """Inicializar el generador MIDI con configuraciones por defecto."""
         self.default_tempo = 120
         self.ticks_per_beat = 480
         
-        # Bass note mappings for common chords
+        # Mapeos de notas de bajo para acordes comunes
         self.chord_bass_notes = {
             'C': [36, 48],      # C2, C3
             'Am': [33, 45],     # A1, A2  
@@ -37,55 +37,55 @@ class MidiGenerator:
             'Em': [28, 40],     # E1, E2
         }
         
-        # Standard drum kit MIDI note mappings
+        # Mapeos de notas MIDI estándar de batería
         self.drum_map = {
-            'kick': 36,         # Bass Drum 1
-            'snare': 38,        # Acoustic Snare
-            'hihat_closed': 42, # Closed Hi-Hat
-            'hihat_open': 46,   # Open Hi-Hat
-            'crash': 49,        # Crash Cymbal 1
-            'ride': 51,         # Ride Cymbal 1
+            'kick': 36,         # Bombo 1
+            'snare': 38,        # Caja Acústica
+            'hihat_closed': 42, # Hi-Hat Cerrado
+            'hihat_open': 46,   # Hi-Hat Abierto
+            'crash': 49,        # Platillo Crash 1
+            'ride': 51,         # Platillo Ride 1
         }
     
     def generate_bass_track(self, chord_progression: List[Dict[str, Any]], 
                           tempo: int = 120, key: str = "C") -> pretty_midi.PrettyMIDI:
         """
-        Generate a bass track that follows the chord progression.
+        Generar una pista de bajo que sigue la progresión de acordes.
         
         Args:
-            chord_progression: List of chord dictionaries with timing
-            tempo: Tempo in BPM
-            key: Musical key
+            chord_progression: Lista de diccionarios de acordes con timing
+            tempo: Tempo en BPM
+            key: Tonalidad musical
             
         Returns:
-            PrettyMIDI object containing the bass track
+            Objeto PrettyMIDI conteniendo la pista de bajo
         """
-        # Create MIDI object
+        # Crear objeto MIDI
         midi = pretty_midi.PrettyMIDI(initial_tempo=tempo)
         
-        # Create bass instrument (Electric Bass)
+        # Crear instrumento de bajo (Bajo Eléctrico)
         bass_program = pretty_midi.instrument_name_to_program('Electric Bass (pick)')
         bass = pretty_midi.Instrument(program=bass_program, is_drum=False, name='Bass')
         
-        # Generate bass notes for each chord
+        # Generar notas de bajo para cada acorde
         for chord_info in chord_progression:
-            # Handle missing chord information gracefully
-            chord_name = chord_info.get("chord", "C")  # Default to C
+            # Manejar información de acordes faltante de forma elegante
+            chord_name = chord_info.get("chord", "C")  # Por defecto C
             start_time = chord_info.get("start_time", 0.0)
             duration = chord_info.get("duration", 2.0)
             
-            # Skip empty or invalid chords
+            # Omitir acordes vacíos o inválidos
             if not chord_name or not isinstance(chord_name, str):
                 chord_name = "C"
             
-            # Get bass notes for this chord
+            # Obtener notas de bajo para este acorde
             if chord_name in self.chord_bass_notes:
                 bass_notes = self.chord_bass_notes[chord_name]
             else:
-                # Default to C if chord not found
+                # Por defecto C si no se encuentra el acorde
                 bass_notes = self.chord_bass_notes['C']
             
-            # Generate bass pattern
+            # Generar patrón de bajo
             self._add_bass_pattern(bass, bass_notes, start_time, duration, tempo)
         
         midi.instruments.append(bass)
@@ -94,37 +94,37 @@ class MidiGenerator:
     def _add_bass_pattern(self, instrument: pretty_midi.Instrument, 
                          bass_notes: List[int], start_time: float, 
                          duration: float, tempo: int):
-        """Add a bass pattern for a chord duration."""
-        # Simple bass pattern: root note on beats 1 and 3
-        beat_duration = 60.0 / tempo  # Duration of one beat in seconds
+        """Agregar un patrón de bajo para la duración de un acorde."""
+        # Patrón de bajo simple: nota fundamental en tiempos 1 y 3
+        beat_duration = 60.0 / tempo  # Duración de un tiempo en segundos
         
-        # Pattern: Root on beat 1, octave or fifth on beat 3
+        # Patrón: Fundamental en tiempo 1, octava o quinta en tiempo 3
         patterns = [
-            # Pattern 1: Root - Root - Root - Root (whole notes)
+            # Patrón 1: Fundamental - Fundamental - Fundamental - Fundamental (notas enteras)
             [(0, bass_notes[0], beat_duration * 4)],
             
-            # Pattern 2: Root - Rest - Root - Rest (half notes)
+            # Patrón 2: Fundamental - Silencio - Fundamental - Silencio (blancas)
             [(0, bass_notes[0], beat_duration * 2),
              (beat_duration * 2, bass_notes[0], beat_duration * 2)],
             
-            # Pattern 3: Root - Fifth - Root - Fifth (quarter notes)
+            # Patrón 3: Fundamental - Quinta - Fundamental - Quinta (negras)
             [(0, bass_notes[0], beat_duration),
              (beat_duration, bass_notes[1], beat_duration),
              (beat_duration * 2, bass_notes[0], beat_duration),
              (beat_duration * 3, bass_notes[1], beat_duration)],
         ]
         
-        # Choose pattern based on duration
+        # Elegir patrón basado en duración
         if duration >= 4.0:
-            pattern = patterns[2]  # More active for longer chords
+            pattern = patterns[2]  # Más activo para acordes largos
         elif duration >= 2.0:
-            pattern = patterns[1]  # Medium activity
+            pattern = patterns[1]  # Actividad media
         else:
-            pattern = patterns[0]  # Simple for short chords
+            pattern = patterns[0]  # Simple para acordes cortos
         
-        # Add notes to instrument
+        # Agregar notas al instrumento
         for note_start, note_pitch, note_duration in pattern:
-            if note_start < duration:  # Make sure note fits in chord duration
+            if note_start < duration:  # Asegurar que la nota quepa en la duración del acorde
                 actual_duration = min(note_duration, duration - note_start)
                 note = pretty_midi.Note(
                     velocity=80,
@@ -137,23 +137,23 @@ class MidiGenerator:
     def generate_drum_track(self, chord_progression: List[Dict[str, Any]], 
                           tempo: int = 120, duration: float = 8.0) -> pretty_midi.PrettyMIDI:
         """
-        Generate a drum track that complements the chord progression.
+        Generar una pista de batería que complementa la progresión de acordes.
         
         Args:
-            chord_progression: List of chord dictionaries
-            tempo: Tempo in BPM
-            duration: Total duration in seconds
+            chord_progression: Lista de diccionarios de acordes
+            tempo: Tempo en BPM
+            duration: Duración total en segundos
             
         Returns:
-            PrettyMIDI object containing the drum track
+            Objeto PrettyMIDI conteniendo la pista de batería
         """
-        # Create MIDI object
+        # Crear objeto MIDI
         midi = pretty_midi.PrettyMIDI(initial_tempo=tempo)
         
-        # Create drum instrument
+        # Crear instrumento de batería
         drums = pretty_midi.Instrument(program=0, is_drum=True, name='Drums')
         
-        # Generate drum pattern
+        # Generar patrón de batería
         self._add_drum_pattern(drums, tempo, duration)
         
         midi.instruments.append(drums)
@@ -161,18 +161,18 @@ class MidiGenerator:
     
     def _add_drum_pattern(self, instrument: pretty_midi.Instrument, 
                          tempo: int, duration: float):
-        """Add a basic drum pattern."""
-        beat_duration = 60.0 / tempo  # Duration of one beat in seconds
+        """Agregar un patrón básico de batería."""
+        beat_duration = 60.0 / tempo  # Duración de un tiempo en segundos
         current_time = 0.0
         
         while current_time < duration:
-            # Basic 4/4 pattern: Kick on 1,3 - Snare on 2,4 - Hi-hat on 1,2,3,4
+            # Patrón básico 4/4: Bombo en 1,3 - Caja en 2,4 - Hi-hat en 1,2,3,4
             measure_duration = beat_duration * 4
             
             if current_time + measure_duration > duration:
                 break
             
-            # Kick drum on beats 1 and 3
+            # Bombo en tiempos 1 y 3
             kick_note1 = pretty_midi.Note(
                 velocity=100, pitch=self.drum_map['kick'],
                 start=current_time, end=current_time + 0.1
@@ -184,7 +184,7 @@ class MidiGenerator:
             )
             instrument.notes.extend([kick_note1, kick_note2])
             
-            # Snare drum on beats 2 and 4
+            # Caja en tiempos 2 y 4
             snare_note1 = pretty_midi.Note(
                 velocity=95, pitch=self.drum_map['snare'],
                 start=current_time + beat_duration, 
@@ -197,7 +197,7 @@ class MidiGenerator:
             )
             instrument.notes.extend([snare_note1, snare_note2])
             
-            # Hi-hat on every beat
+            # Hi-hat en cada tiempo
             for beat in range(4):
                 hihat_note = pretty_midi.Note(
                     velocity=70, pitch=self.drum_map['hihat_closed'],
@@ -211,40 +211,40 @@ class MidiGenerator:
     def generate_ai_bass_track(self, chord_progression: List[Dict[str, Any]], 
                               tempo: int = 120) -> pretty_midi.PrettyMIDI:
         """
-        Generate bass track using AI models (placeholder for Magenta integration).
+        Generar pista de bajo usando modelos de IA (placeholder para integración con Magenta).
         
         Args:
-            chord_progression: List of chord dictionaries
-            tempo: Tempo in BPM
+            chord_progression: Lista de diccionarios de acordes
+            tempo: Tempo en BPM
             
         Returns:
-            PrettyMIDI object containing AI-generated bass track
+            Objeto PrettyMIDI conteniendo pista de bajo generada por IA
             
         Note:
-            This is a placeholder for future Magenta/AI integration.
-            Current implementation uses rule-based generation with variations.
+            Este es un placeholder para futura integración con Magenta/IA.
+            La implementación actual usa generación basada en reglas con variaciones.
         """
-        # TODO: Integrate with Magenta's MusicVAE or other AI models
-        # For now, use enhanced rule-based generation
+        # TODO: Integrar con MusicVAE de Magenta u otros modelos de IA
+        # Por ahora, usar generación basada en reglas mejorada
         
         midi = self.generate_bass_track(chord_progression, tempo)
         
-        # Add some AI-like variations
+        # Agregar algunas variaciones similares a IA
         bass_instrument = midi.instruments[0]
         self._add_bass_variations(bass_instrument)
         
         return midi
     
     def _add_bass_variations(self, instrument: pretty_midi.Instrument):
-        """Add variations to make bass line more interesting."""
-        # Add some passing notes and rhythmic variations
+        """Agregar variaciones para hacer la línea de bajo más interesante."""
+        # Agregar algunas notas de paso y variaciones rítmicas
         for i, note in enumerate(instrument.notes):
-            # Occasionally add slight timing variations
+            # Ocasionalmente agregar ligeras variaciones de timing
             if random.random() < 0.3:
                 note.start += random.uniform(-0.05, 0.05)
                 note.end += random.uniform(-0.05, 0.05)
             
-            # Occasionally change velocity for dynamics
+            # Ocasionalmente cambiar velocidad para dinámicas
             if random.random() < 0.4:
                 note.velocity += random.randint(-20, 20)
                 note.velocity = max(30, min(127, note.velocity))
@@ -252,23 +252,23 @@ class MidiGenerator:
     def combine_tracks(self, bass_midi: pretty_midi.PrettyMIDI, 
                       drum_midi: pretty_midi.PrettyMIDI) -> pretty_midi.PrettyMIDI:
         """
-        Combine bass and drum tracks into a single MIDI file.
+        Combinar pistas de bajo y batería en un solo archivo MIDI.
         
         Args:
-            bass_midi: Bass track MIDI
-            drum_midi: Drum track MIDI
+            bass_midi: MIDI de pista de bajo
+            drum_midi: MIDI de pista de batería
             
         Returns:
-            Combined MIDI file
+            Archivo MIDI combinado
         """
-        # Create new MIDI object
+        # Crear nuevo objeto MIDI
         combined = pretty_midi.PrettyMIDI(initial_tempo=bass_midi.get_tempo_changes()[1][0])
         
-        # Add bass instrument
+        # Agregar instrumento de bajo
         if bass_midi.instruments:
             combined.instruments.append(bass_midi.instruments[0])
         
-        # Add drum instrument
+        # Agregar instrumento de batería
         if drum_midi.instruments:
             combined.instruments.append(drum_midi.instruments[0])
         

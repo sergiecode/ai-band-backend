@@ -1,10 +1,10 @@
 """
-Chord Detection Module
-Part of AI Band Backend by Sergie Code
+Módulo de Detección de Acordes
+Parte del AI Band Backend por Sergie Code
 
-This module handles chord and tempo detection from guitar input.
-Currently implements basic chord analysis, with placeholders for
-real-time audio processing and AI-based chord recognition.
+Este módulo maneja la detección de acordes y tempo desde entrada de guitarra.
+Actualmente implementa análisis básico de acordes, con placeholders para
+procesamiento de audio en tiempo real y reconocimiento de acordes basado en IA.
 """
 
 import numpy as np
@@ -13,22 +13,22 @@ from typing import List, Dict, Any
 
 class ChordDetector:
     """
-    Handles chord detection and musical analysis from guitar input.
+    Maneja la detección de acordes y análisis musical desde entrada de guitarra.
     
-    This class provides methods to:
-    - Detect chords from audio input (placeholder for real implementation)
-    - Analyze tempo from chord progressions
-    - Determine musical key from chord sequences
-    - Extract musical features for AI model input
+    Esta clase proporciona métodos para:
+    - Detectar acordes desde entrada de audio (placeholder para implementación real)
+    - Analizar tempo desde progresiones de acordes
+    - Determinar tonalidad musical desde secuencias de acordes
+    - Extraer características musicales para entrada de modelo de IA
     """
     
     def __init__(self):
-        """Initialize the chord detector with default settings."""
+        """Inicializar el detector de acordes con configuraciones por defecto."""
         self.sample_rate = 44100
         self.hop_length = 512
         self.frame_length = 2048
         
-        # Common chord-to-key mappings
+        # Mapeos comunes de acorde-a-tonalidad
         self.chord_key_map = {
             'C': ['C', 'F', 'G'],
             'Am': ['C', 'F', 'G'],
@@ -40,25 +40,25 @@ class ChordDetector:
     
     def detect_chords_from_audio(self, audio_file_path: str) -> List[Dict[str, Any]]:
         """
-        Detect chords from an audio file.
+        Detectar acordes desde un archivo de audio.
         
         Args:
-            audio_file_path: Path to the audio file
+            audio_file_path: Ruta al archivo de audio
             
         Returns:
-            List of chord dictionaries with timing information
+            Lista de diccionarios de acordes con información de timing
             
         Note:
-            This is a placeholder implementation. In a real scenario,
-            you would use librosa + machine learning models or
-            integrate with Magenta's chord recognition.
+            Esta es una implementación placeholder. En un escenario real,
+            usarías librosa + modelos de aprendizaje automático o
+            integración con el reconocimiento de acordes de Magenta.
         """
-        # TODO: Implement real chord detection using:
-        # - librosa for audio analysis
-        # - tensorflow/magenta for AI-based chord recognition
-        # - chromagram analysis for chord detection
+        # TODO: Implementar detección real de acordes usando:
+        # - librosa para análisis de audio
+        # - tensorflow/magenta para reconocimiento de acordes basado en IA
+        # - análisis de cromograma para detección de acordes
         
-        # Placeholder: return sample chord progression
+        # Placeholder: devolver progresión de acordes de muestra
         return [
             {"chord": "C", "start_time": 0.0, "duration": 2.0, "confidence": 0.95},
             {"chord": "Am", "start_time": 2.0, "duration": 2.0, "confidence": 0.90},
@@ -68,62 +68,62 @@ class ChordDetector:
     
     def detect_tempo(self, chord_progression: List[Dict[str, Any]]) -> int:
         """
-        Detect tempo from chord progression timing.
+        Detectar tempo desde timing de progresión de acordes.
         
         Args:
-            chord_progression: List of chord dictionaries with timing
+            chord_progression: Lista de diccionarios de acordes con timing
             
         Returns:
-            Detected tempo in BPM
+            Tempo detectado en BPM
         """
         if len(chord_progression) < 2:
-            return 120  # Default tempo
+            return 120  # Tempo por defecto
         
-        # Calculate average chord duration, handling missing keys
+        # Calcular duración promedio de acordes, manejando claves faltantes
         durations = []
         for chord in chord_progression:
             if "duration" in chord and isinstance(chord["duration"], (int, float)):
-                if chord["duration"] > 0:  # Only positive durations
+                if chord["duration"] > 0:  # Solo duraciones positivas
                     durations.append(chord["duration"])
         
         if not durations:
-            return 120  # Default if no valid durations
+            return 120  # Por defecto si no hay duraciones válidas
         
         avg_duration = sum(durations) / len(durations)
         
-        # Estimate BPM based on chord changes
-        # Assuming each chord represents a measure or half-measure
-        beats_per_chord = 4  # Assume 4/4 time signature
+        # Estimar BPM basado en cambios de acordes
+        # Asumiendo que cada acorde representa un compás o medio compás
+        beats_per_chord = 4  # Asumir compás de 4/4
         chord_duration_minutes = avg_duration / 60
         bpm = beats_per_chord / chord_duration_minutes
         
-        # Round to common BPM values
+        # Redondear a valores comunes de BPM
         common_bpms = [60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160]
         return min(common_bpms, key=lambda x: abs(x - bpm))
     
     def detect_key(self, chord_progression: List[Dict[str, Any]]) -> str:
         """
-        Detect musical key from chord progression.
+        Detectar tonalidad musical desde progresión de acordes.
         
         Args:
-            chord_progression: List of chord dictionaries
+            chord_progression: Lista de diccionarios de acordes
             
         Returns:
-            Detected musical key
+            Tonalidad musical detectada
         """
         if not chord_progression:
             return "C"
         
-        # Extract chord names, handling missing keys
+        # Extraer nombres de acordes, manejando claves faltantes
         chords = []
         for chord_info in chord_progression:
             if "chord" in chord_info and chord_info["chord"]:
                 chords.append(chord_info["chord"])
         
         if not chords:
-            return "C"  # Default if no valid chords
+            return "C"  # Por defecto si no hay acordes válidos
         
-        # Simple key detection based on chord frequency
+        # Detección simple de tonalidad basada en frecuencia de acordes
         key_scores = {}
         
         for chord in chords:
@@ -134,20 +134,20 @@ class ChordDetector:
         if not key_scores:
             return "C"
         
-        # Return the key with highest score
+        # Devolver la tonalidad con mayor puntuación
         return max(key_scores, key=key_scores.get)
     
     def analyze_chord_progression(self, chord_progression: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
-        Comprehensive analysis of a chord progression.
+        Análisis comprensivo de una progresión de acordes.
         
         Args:
-            chord_progression: List of chord dictionaries
+            chord_progression: Lista de diccionarios de acordes
             
         Returns:
-            Dictionary containing musical analysis
+            Diccionario conteniendo análisis musical
         """
-        # Calculate total duration safely
+        # Calcular duración total de forma segura
         total_duration = 0.0
         valid_chords = []
         
@@ -164,31 +164,31 @@ class ChordDetector:
             "total_duration": total_duration,
             "chord_count": len(chord_progression),
             "unique_chords": len(set(valid_chords)) if valid_chords else 0,
-            "time_signature": "4/4",  # Default assumption
+            "time_signature": "4/4",  # Asunción por defecto
         }
     
     def extract_features_for_ai(self, chord_progression: List[Dict[str, Any]]) -> np.ndarray:
         """
-        Extract numerical features from chord progression for AI model input.
+        Extraer características numéricas desde progresión de acordes para entrada de modelo de IA.
         
         Args:
-            chord_progression: List of chord dictionaries
+            chord_progression: Lista de diccionarios de acordes
             
         Returns:
-            Feature vector as numpy array
+            Vector de características como array numpy
         """
-        # Simple feature extraction (can be expanded)
+        # Extracción simple de características (puede expandirse)
         features = []
         
-        # Basic features
-        features.append(len(chord_progression))  # Number of chords
+        # Características básicas
+        features.append(len(chord_progression))  # Número de acordes
         features.append(self.detect_tempo(chord_progression))  # Tempo
         
-        # Chord type encoding (simplified)
+        # Codificación de tipos de acordes (simplificada)
         chord_types = {"C": 0, "Am": 1, "F": 2, "G": 3, "Dm": 4, "Em": 5}
         chord_sequence = [chord_types.get(chord["chord"], 0) for chord in chord_progression]
         
-        # Pad or truncate to fixed length
+        # Rellenar o truncar a longitud fija
         max_length = 8
         if len(chord_sequence) < max_length:
             chord_sequence.extend([0] * (max_length - len(chord_sequence)))

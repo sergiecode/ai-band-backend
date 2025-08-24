@@ -1,9 +1,9 @@
 """
-Example Usage of AI Band Backend
-Created by Sergie Code
+Uso de Ejemplo del AI Band Backend
+Creado por Sergie Code
 
-This script demonstrates various ways to use the AI Band Backend
-for generating bass and drum tracks from chord progressions.
+Este script demuestra varias formas de usar el AI Band Backend
+para generar pistas de bajo y batería desde progresiones de acordes.
 """
 
 import sys
@@ -17,15 +17,15 @@ from midi_generator import MidiGenerator
 
 
 def example_basic_generation():
-    """Example 1: Basic chord progression generation."""
-    print("\nExample 1: Basic Generation")
+    """Ejemplo 1: Generación básica de progresión de acordes."""
+    print("\nEjemplo 1: Generación Básica")
     print("-" * 40)
     
-    # Initialize components
+    # Inicializar componentes
     detector = ChordDetector()
     generator = MidiGenerator()
     
-    # Define a simple chord progression
+    # Definir una progresión simple de acordes
     chords = [
         {"chord": "C", "start_time": 0.0, "duration": 2.0},
         {"chord": "Am", "start_time": 2.0, "duration": 2.0},
@@ -33,15 +33,15 @@ def example_basic_generation():
         {"chord": "G", "start_time": 6.0, "duration": 2.0},
     ]
     
-    # Analyze the progression
+    # Analizar la progresión
     analysis = detector.analyze_chord_progression(chords)
-    print(f"Analysis: {analysis}")
+    print(f"Análisis: {analysis}")
     
-    # Generate tracks
+    # Generar pistas
     bass_midi = generator.generate_bass_track(chords, tempo=analysis["tempo"])
     drum_midi = generator.generate_drum_track(chords, tempo=analysis["tempo"])
     
-    # Save files
+    # Guardar archivos
     output_dir = Path("examples_output")
     output_dir.mkdir(exist_ok=True)
     
@@ -51,17 +51,17 @@ def example_basic_generation():
     bass_midi.write(str(bass_file))
     drum_midi.write(str(drum_file))
     
-    print(f"Files saved: {bass_file}, {drum_file}")
+    print(f"Archivos guardados: {bass_file}, {drum_file}")
 
 
 def example_different_styles():
-    """Example 2: Different musical styles and tempos."""
-    print("\nExample 2: Different Styles")
+    """Ejemplo 2: Diferentes estilos musicales y tempos."""
+    print("\nEjemplo 2: Diferentes Estilos")
     print("-" * 40)
     
     generator = MidiGenerator()
     
-    # Style 1: Slow ballad
+    # Estilo 1: Balada lenta
     ballad_chords = [
         {"chord": "C", "start_time": 0.0, "duration": 4.0},
         {"chord": "Am", "start_time": 4.0, "duration": 4.0},
@@ -71,7 +71,7 @@ def example_different_styles():
     
     bass_ballad = generator.generate_bass_track(ballad_chords, tempo=70)
     
-    # Style 2: Fast rock
+    # Estilo 2: Rock rápido
     rock_chords = [
         {"chord": "Em", "start_time": 0.0, "duration": 1.0},
         {"chord": "C", "start_time": 1.0, "duration": 1.0},
@@ -82,7 +82,7 @@ def example_different_styles():
     bass_rock = generator.generate_bass_track(rock_chords, tempo=140)
     drum_rock = generator.generate_drum_track(rock_chords, tempo=140, duration=4.0)
     
-    # Save files
+    # Guardar archivos
     output_dir = Path("examples_output")
     output_dir.mkdir(exist_ok=True)
     
@@ -90,17 +90,17 @@ def example_different_styles():
     bass_rock.write(str(output_dir / "example2_rock_bass.mid"))
     drum_rock.write(str(output_dir / "example2_rock_drums.mid"))
     
-    print("Different style examples saved")
+    print("Ejemplos de diferentes estilos guardados")
 
 
 def example_combined_track():
-    """Example 3: Combining bass and drums into one file."""
-    print("\nExample 3: Combined Track")
+    """Ejemplo 3: Combinando bajo y batería en un archivo."""
+    print("\nEjemplo 3: Pista Combinada")
     print("-" * 40)
     
     generator = MidiGenerator()
     
-    # Create a progression
+    # Crear una progresión
     chords = [
         {"chord": "Am", "start_time": 0.0, "duration": 2.0},
         {"chord": "F", "start_time": 2.0, "duration": 2.0},
@@ -108,31 +108,31 @@ def example_combined_track():
         {"chord": "G", "start_time": 6.0, "duration": 2.0},
     ]
     
-    # Generate individual tracks
+    # Generar pistas individuales
     bass_midi = generator.generate_bass_track(chords, tempo=100)
     drum_midi = generator.generate_drum_track(chords, tempo=100, duration=8.0)
     
-    # Combine tracks
+    # Combinar pistas
     combined_midi = generator.combine_tracks(bass_midi, drum_midi)
     
-    # Save combined file
+    # Guardar archivo combinado
     output_dir = Path("examples_output")
     output_dir.mkdir(exist_ok=True)
     
     combined_file = output_dir / "example3_combined.mid"
     combined_midi.write(str(combined_file))
     
-    print(f"Combined track saved: {combined_file}")
+    print(f"Pista combinada guardada: {combined_file}")
 
 
 def example_ai_features():
-    """Example 4: AI feature extraction for future model training."""
-    print("\nExample 4: AI Features")
+    """Ejemplo 4: Extracción de características de IA para entrenamiento futuro de modelos."""
+    print("\nEjemplo 4: Características de IA")
     print("-" * 40)
     
     detector = ChordDetector()
     
-    # Complex chord progression
+    # Progresión compleja de acordes
     chords = [
         {"chord": "Dm", "start_time": 0.0, "duration": 1.5},
         {"chord": "G", "start_time": 1.5, "duration": 1.5},
@@ -142,33 +142,33 @@ def example_ai_features():
         {"chord": "G", "start_time": 7.0, "duration": 1.0},
     ]
     
-    # Extract features for AI
+    # Extraer características para IA
     features = detector.extract_features_for_ai(chords)
     analysis = detector.analyze_chord_progression(chords)
     
-    print(f"AI Features: {features}")
-    print(f"Musical Analysis: {analysis}")
+    print(f"Características de IA: {features}")
+    print(f"Análisis Musical: {analysis}")
     
-    # Generate with AI-enhanced method (placeholder)
+    # Generar con método mejorado por IA (placeholder)
     generator = MidiGenerator()
     ai_bass = generator.generate_ai_bass_track(chords, tempo=analysis["tempo"])
     
-    # Save AI-generated track
+    # Guardar pista generada por IA
     output_dir = Path("examples_output")
     output_dir.mkdir(exist_ok=True)
     
     ai_file = output_dir / "example4_ai_bass.mid"
     ai_bass.write(str(ai_file))
     
-    print(f"AI-enhanced bass saved: {ai_file}")
+    print(f"Bajo mejorado por IA guardado: {ai_file}")
 
 
 def main():
-    """Run all examples."""
-    print("AI Band Backend - Examples")
+    """Ejecutar todos los ejemplos."""
+    print("🎸 AI Band Backend - Ejemplos")
     print("=" * 50)
-    print("Created by Sergie Code")
-    print("These examples show different ways to use the AI Band Backend")
+    print("Creado por Sergie Code")
+    print("Estos ejemplos muestran diferentes formas de usar el AI Band Backend")
     
     try:
         example_basic_generation()
@@ -176,13 +176,13 @@ def main():
         example_combined_track()
         example_ai_features()
         
-        print("\nAll examples completed successfully!")
-        print("Check the 'examples_output' folder for generated MIDI files")
-        print("Import these files into your DAW to hear the results!")
+        print("\n🎉 ¡Todos los ejemplos completados exitosamente!")
+        print("📁 Revisa la carpeta 'examples_output' para los archivos MIDI generados")
+        print("🎵 ¡Importa estos archivos a tu DAW para escuchar los resultados!")
         
     except Exception as e:
-        print(f"\nError running examples: {e}")
-        print("Make sure you've installed all dependencies:")
+        print(f"\n❌ Error ejecutando ejemplos: {e}")
+        print("Asegúrate de haber instalado todas las dependencias:")
         print("pip install -r requirements.txt")
 
 

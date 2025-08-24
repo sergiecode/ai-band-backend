@@ -1,48 +1,48 @@
-# AI Band Ecosystem - Project Structure Templates
+# Ecosistema AI Band - Plantillas de Estructura de Proyecto
 
 ## 🎸 ai-band-plugin (C++ JUCE)
 
 ```
 ai-band-plugin/
 ├── Source/
-│   ├── PluginProcessor.cpp      # Main audio processor
-│   ├── PluginProcessor.h        # Audio processor header
-│   ├── PluginEditor.cpp         # GUI implementation
-│   ├── PluginEditor.h           # GUI header
-│   ├── MidiManager.cpp          # MIDI file handling
-│   ├── MidiManager.h            # MIDI manager header
-│   ├── OrchestratorClient.cpp   # HTTP communication
-│   ├── OrchestratorClient.h     # HTTP client header
-│   ├── ChordAnalyzer.cpp        # Real-time chord detection
-│   └── ChordAnalyzer.h          # Chord analyzer header
-├── JuceLibraryCode/             # JUCE framework files
-├── Builds/                      # Platform-specific builds
+│   ├── PluginProcessor.cpp      # Procesador principal de audio
+│   ├── PluginProcessor.h        # Header del procesador de audio
+│   ├── PluginEditor.cpp         # Implementación GUI
+│   ├── PluginEditor.h           # Header GUI
+│   ├── MidiManager.cpp          # Manejo de archivos MIDI
+│   ├── MidiManager.h            # Header del gestor MIDI
+│   ├── OrchestratorClient.cpp   # Comunicación HTTP
+│   ├── OrchestratorClient.h     # Header del cliente HTTP
+│   ├── ChordAnalyzer.cpp        # Detección de acordes en tiempo real
+│   └── ChordAnalyzer.h          # Header del analizador de acordes
+├── JuceLibraryCode/             # Archivos del framework JUCE
+├── Builds/                      # Builds específicos de plataforma
 │   ├── VisualStudio2022/        # Windows (VS)
 │   ├── Xcode/                   # macOS
 │   └── LinuxMakefile/           # Linux
-├── Resources/                   # UI assets, presets
-├── Tests/                       # Unit tests
-├── README.md                    # Plugin documentation
-├── CMakeLists.txt              # CMake build config
-└── ai-band-plugin.jucer        # JUCE project file
+├── Resources/                   # Assets UI, presets
+├── Tests/                       # Pruebas unitarias
+├── README.md                    # Documentación del plugin
+├── CMakeLists.txt              # Configuración build CMake
+└── ai-band-plugin.jucer        # Archivo de proyecto JUCE
 ```
 
-### Key Plugin Classes
+### Clases Clave del Plugin
 ```cpp
 class AIBandProcessor : public AudioProcessor {
-    // Audio processing and MIDI handling
+    // Procesamiento de audio y manejo MIDI
     void processBlock(AudioBuffer<float>&, MidiBuffer&);
     void handleMIDI(const MidiBuffer&);
 };
 
 class MidiManager {
-    // MIDI file import/export
+    // Importación/exportación de archivos MIDI
     bool loadMIDIFile(const String& path);
     void saveMIDIFile(const MidiFile&, const String& path);
 };
 
 class OrchestratorClient {
-    // Communication with orchestrator
+    // Comunicación con orchestrator
     Result generateTracks(const ChordProgression&);
     Result getGeneratedFiles();
 };

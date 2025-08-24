@@ -1,21 +1,21 @@
-# AI Band Backend - Quick Integration Reference
+# AI Band Backend - Referencia Rápida de Integración
 
-**For AI Agents developing ai-band-plugin and ai-band-orchestrator**
+**Para Agentes de IA desarrollando ai-band-plugin y ai-band-orchestrator**
 
-## 🚀 Essential Integration Points
+## 🚀 Puntos de Integración Esenciales
 
-### 1. Backend Import (Python)
+### 1. Importación del Backend (Python)
 ```python
-# In orchestrator project
+# En proyecto orchestrator
 import sys
 sys.path.append('../ai-band-backend/src')
 from chord_detection import ChordDetector
 from midi_generator import MidiGenerator
 ```
 
-### 2. Core Data Structures
+### 2. Estructuras de Datos Principales
 
-#### Chord Progression Format
+#### Formato de Progresión de Acordes
 ```json
 {
   "chord": "C",
@@ -24,7 +24,7 @@ from midi_generator import MidiGenerator
 }
 ```
 
-#### Generation Response
+#### Respuesta de Generación
 ```json
 {
   "bass_file": "path/to/bass.mid",
@@ -33,7 +33,7 @@ from midi_generator import MidiGenerator
 }
 ```
 
-### 3. Backend Classes Usage
+### 3. Uso de Clases del Backend
 
 #### ChordDetector
 ```python
@@ -51,19 +51,19 @@ drum_midi = generator.generate_drum_track(chords, tempo=120, duration=8.0)
 combined = generator.combine_tracks(bass_midi, drum_midi)
 ```
 
-### 4. File Operations
+### 4. Operaciones de Archivos
 ```python
-# Save MIDI files
+# Guardar archivos MIDI
 bass_midi.write("output/bass.mid")
 drum_midi.write("output/drums.mid")
 
-# Load in plugin (C++ JUCE)
+# Cargar en plugin (C++ JUCE)
 MidiFile midiFile;
 FileInputStream stream(File("output/bass.mid"));
 midiFile.readFrom(stream);
 ```
 
-### 5. REST API Endpoints (Orchestrator)
+### 5. Endpoints de API REST (Orchestrator)
 ```python
 @app.post("/generate")
 async def generate_tracks(progression: ChordProgression):
@@ -75,9 +75,9 @@ async def get_midi_file(filename: str):
     return FileResponse(f"generated/{filename}")
 ```
 
-### 6. Plugin Communication (C++ JUCE)
+### 6. Comunicación de Plugin (C++ JUCE)
 ```cpp
-// Send chord data to orchestrator
+// Enviar datos de acordes al orchestrator
 json request = {
     {"chords", chordsToJson(chords)},
     {"tempo", 120},
@@ -85,37 +85,37 @@ json request = {
 };
 auto response = httpPost("http://localhost:8080/generate", request);
 
-// Load generated MIDI
+// Cargar MIDI generado
 plugin.loadMIDIFile(response["bass_file"]);
 plugin.loadMIDIFile(response["drum_file"]);
 ```
 
-## 🎯 Key Requirements
+## 🎯 Requisitos Clave
 
 ### Plugin (C++ JUCE)
-- MIDI file import/export
-- HTTP client for orchestrator
-- Real-time audio processing
-- DAW integration (VST/AU)
-- Chord input capture
+- Importación/exportación de archivos MIDI
+- Cliente HTTP para orchestrator
+- Procesamiento de audio en tiempo real
+- Integración con DAW (VST/AU)
+- Captura de entrada de acordes
 
 ### Orchestrator (Python)
-- FastAPI/Flask server
-- Backend integration module
-- File management system
-- WebSocket support
-- Error handling
+- Servidor FastAPI/Flask
+- Módulo de integración backend
+- Sistema de gestión de archivos
+- Soporte WebSocket
+- Manejo de errores
 
-## 📁 Required Dependencies
+## 📁 Dependencias Requeridas
 
-### Backend (already installed)
+### Backend (ya instaladas)
 ```
 pretty_midi==0.2.10
 mido==1.3.2
 numpy==1.24.3
 ```
 
-### Orchestrator (to be added)
+### Orchestrator (a agregar)
 ```
 fastapi==0.68.0
 uvicorn==0.15.0
@@ -126,23 +126,23 @@ websockets==10.0
 ### Plugin (C++ JUCE)
 ```
 JUCE Framework 7.0+
-HTTP client library (cpp-httplib)
-JSON parser (nlohmann/json)
+Librería cliente HTTP (cpp-httplib)
+Parser JSON (nlohmann/json)
 ```
 
-## ⚡ Performance Targets
-- Chord analysis: <50ms
-- MIDI generation: <200ms
-- File I/O: <20ms
-- Total latency: <300ms
+## ⚡ Objetivos de Rendimiento
+- Análisis de acordes: <50ms
+- Generación MIDI: <200ms
+- E/S de archivos: <20ms
+- Latencia total: <300ms
 
-## 🔗 Repository Structure
+## 🔗 Estructura del Repositorio
 ```
 ai-band-ecosystem/
-├── ai-band-backend/     # ✅ Complete (Python core)
-├── ai-band-plugin/      # 🔄 To be created (C++ JUCE)
-└── ai-band-orchestrator/ # 🔄 To be created (Python server)
+├── ai-band-backend/     # ✅ Completo (núcleo Python)
+├── ai-band-plugin/      # 🔄 A crear (C++ JUCE)
+└── ai-band-orchestrator/ # 🔄 A crear (servidor Python)
 ```
 
 ---
-**Use INTEGRATION_GUIDE.md for complete specifications**
+**Usa INTEGRATION_GUIDE.md para especificaciones completas**
