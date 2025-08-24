@@ -1,0 +1,104 @@
+# AI Band Backend - .gitignore
+# Created by Sergie Code
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Output files
+output/
+examples_output/
+*.mid
+*.midi
+*.wav
+*.mp3
+
+# AI Models (large files)
+models/magenta/*.mag
+models/custom/*.h5
+models/custom/*.pt
+models/custom/*.onnx
+*.pkl
+*.joblib
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+test_installation.py
+
+# Configuration (if contains sensitive data)
+# config_local.ini
+# secrets.env
+
+# Audio processing cache
+librosa_cache/
+*.cache
+
+# TensorFlow
+*.pb
+*.pbtxt
+checkpoint
+*.ckpt*
+*.meta
+*.index
+
+# PyTorch
+*.pth
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
