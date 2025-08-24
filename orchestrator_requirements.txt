@@ -1,0 +1,38 @@
+# AI Band Orchestrator - Requirements Template
+# Copy this to ai-band-orchestrator/requirements.txt
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# HTTP and WebSocket
+httpx==0.25.2
+websockets==11.0.3
+python-multipart==0.0.6
+
+# AI Band Backend Dependencies (shared)
+pretty_midi==0.2.10
+mido==1.3.2
+numpy==1.24.3
+
+# Data Processing
+pydantic==2.4.2
+python-json-logger==2.0.7
+
+# File Handling
+aiofiles==23.2.1
+pathlib2==2.3.7
+
+# Development Tools
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.9.1
+flake8==6.1.0
+
+# Optional: Database (if storing generation history)
+sqlalchemy==2.0.23
+alembic==1.12.1
+
+# Optional: Monitoring
+prometheus-client==0.19.0
+structlog==23.2.0
