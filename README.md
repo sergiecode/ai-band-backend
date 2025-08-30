@@ -249,10 +249,6 @@ Contributions are welcome! Areas where you can help:
 - Optimize performance for real-time use
 - Add support for more musical styles
 
-## 📄 License
-
-This project is open source and available under the MIT License.
-
 ## 🎸 About Sergie Code
 
 Passionate software engineer and music enthusiast creating AI tools for musicians. Teaching programming through practical projects that combine technology with creativity.
@@ -279,3 +275,4 @@ Passionate software engineer and music enthusiast creating AI tools for musician
 ---
 
 *Made with ❤️ for the music and programming community*
+
